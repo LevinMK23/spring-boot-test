@@ -12,6 +12,7 @@ public class Calculator {
         this.registry = registry;
     }
 
+    @Calculable
     public int calculate(int a, int b, Operation operation) {
         return registry.findByType(operation).process(a, b);
     }
