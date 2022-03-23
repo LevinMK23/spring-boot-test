@@ -5,9 +5,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import ru.learnUp.springboottest.dao.User;
+import ru.learnUp.springboottest.dao.UserDao;
 import ru.learnUp.springboottest.service.Calculator;
 import ru.learnUp.springboottest.service.Operation;
 import ru.learnUp.springboottest.service.ValueService;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 public class SpringBootTestApplication {
@@ -19,6 +23,21 @@ public class SpringBootTestApplication {
         Calculator calculator = context.getBean(Calculator.class);
         log.info("{} - {} = {}", 2, 2, calculator.calculate(2, 2, Operation.MINUS));
         context.getBean(ValueService.class).print();
+
+        UserDao userDao = context.getBean(UserDao.class);
+        User user = userDao.findById(1);
+        log.info("{}", user);
+
+        User forUpdate = User.builder()
+                .name("Petr")
+                .surname("Petrov")
+                .address("ghgajdfhaf")
+                .birthDate(LocalDate.of(1990, 1,1))
+                .build();
+
+        userDao.save(forUpdate);
+        log.info("{}", userDao.findById(2));
+
     }
 
 }
