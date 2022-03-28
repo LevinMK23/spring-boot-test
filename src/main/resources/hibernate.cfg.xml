@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://ec2-52-201-124-168.compute-1.amazonaws.com:5432/d689mndovv68dv</property>
+        <property name="hibernate.connection.username">rywejzvusrayec</property>
+        <property name="hibernate.connection.password">3025b754587a936ca1798a2624f96b24c73b638084d9898c60d036ba71d488f6</property>
+        <!-- JDBC connection pool (use the built-in) -->
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>
+        <!-- SQL dialect -->
+        <property name="dialect">org.hibernate.dialect.PostgreSQL92Dialect</property>
+
+        <mapping class="ru.learnUp.springboottest.dao.entity.Post" />
+        <mapping class="ru.learnUp.springboottest.dao.entity.Comment" />
+
+    </session-factory>
+</hibernate-configuration>

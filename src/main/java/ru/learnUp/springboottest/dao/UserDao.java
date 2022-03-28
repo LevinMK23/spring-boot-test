@@ -4,12 +4,9 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Optional;
 
 @Repository
 public class UserDao {
@@ -42,7 +39,7 @@ public class UserDao {
         );
     }
 
-    public User findById(long id) {
+    public Optional<User> findById(long id) {
         return template.query(
                         FIND_BY_ID,
                         new MapSqlParameterSource("id", id),
@@ -54,8 +51,7 @@ public class UserDao {
                                 .birthDate(rs.getDate("birth_date").toLocalDate())
                                 .build()
                 ).stream()
-                .findAny()
-                .orElseThrow(() -> new RuntimeException("user with id = " + id + " is not found"));
+                .findAny();
     }
 
 }

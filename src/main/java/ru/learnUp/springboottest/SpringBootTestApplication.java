@@ -7,11 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.learnUp.springboottest.dao.User;
 import ru.learnUp.springboottest.dao.UserDao;
+import ru.learnUp.springboottest.dao.entity.Comment;
+import ru.learnUp.springboottest.dao.entity.Post;
+import ru.learnUp.springboottest.dao.post.PostDao;
 import ru.learnUp.springboottest.service.Calculator;
 import ru.learnUp.springboottest.service.Operation;
 import ru.learnUp.springboottest.service.ValueService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class SpringBootTestApplication {
@@ -24,19 +28,21 @@ public class SpringBootTestApplication {
         log.info("{} - {} = {}", 2, 2, calculator.calculate(2, 2, Operation.MINUS));
         context.getBean(ValueService.class).print();
 
-        UserDao userDao = context.getBean(UserDao.class);
-        User user = userDao.findById(1);
-        log.info("{}", user);
+        PostDao postDao = context.getBean(PostDao.class);
 
-        User forUpdate = User.builder()
-                .name("Petr")
-                .surname("Petrov")
-                .address("ghgajdfhaf")
-                .birthDate(LocalDate.of(1990, 1,1))
-                .build();
+        Comment comment = new Comment();
+        comment.setText("Comment text");
 
-        userDao.save(forUpdate);
-        log.info("{}", userDao.findById(2));
+        Post post = new Post();
+        post.setText("Post text");
+        post.setTitle("Post title");
+        comment.setPost(post);
+        post.setComments(List.of(comment));
+
+        postDao.createPost(post);
+
+        List<Post> posts = postDao.getPosts();
+        log.info("{}", posts);
 
     }
 
