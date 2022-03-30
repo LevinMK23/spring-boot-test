@@ -1,20 +1,23 @@
 package ru.learnUp.springboottest.dao.entity;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "comment")
 @Getter
 @Setter
+@ToString(exclude = {"post"})
 @RequiredArgsConstructor
 public class Comment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Column
@@ -22,27 +25,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn
+    @Fetch(FetchMode.JOIN)
     private Post post;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Comment comment = (Comment) o;
-        return id != null && Objects.equals(id, comment.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "Comment{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", post=" + post.getId() +
-                '}';
-    }
 }

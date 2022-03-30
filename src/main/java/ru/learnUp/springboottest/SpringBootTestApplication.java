@@ -5,17 +5,17 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.learnUp.springboottest.dao.User;
-import ru.learnUp.springboottest.dao.UserDao;
-import ru.learnUp.springboottest.dao.entity.Comment;
+import org.springframework.jdbc.core.JdbcTemplate;
+import ru.learnUp.springboottest.dao.comment.CommentService;
 import ru.learnUp.springboottest.dao.entity.Post;
-import ru.learnUp.springboottest.dao.post.PostDao;
-import ru.learnUp.springboottest.service.Calculator;
-import ru.learnUp.springboottest.service.Operation;
-import ru.learnUp.springboottest.service.ValueService;
+import ru.learnUp.springboottest.dao.post.PostService;
+import ru.learnUp.springboottest.dao.repository.PostRepository;
 
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class SpringBootTestApplication {
@@ -24,25 +24,14 @@ public class SpringBootTestApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SpringBootTestApplication.class, args);
-        Calculator calculator = context.getBean(Calculator.class);
-        log.info("{} - {} = {}", 2, 2, calculator.calculate(2, 2, Operation.MINUS));
-        context.getBean(ValueService.class).print();
 
-        PostDao postDao = context.getBean(PostDao.class);
+        PostService postService = context.getBean(PostService.class);
 
-        Comment comment = new Comment();
-        comment.setText("Comment text");
+        CommentService commentService = context.getBean(CommentService.class);
 
-        Post post = new Post();
-        post.setText("Post text");
-        post.setTitle("Post title");
-        comment.setPost(post);
-        post.setComments(List.of(comment));
+        log.info("Posts: {}", postService.getPosts());
+        log.info("Comments: {}", commentService.getComments());
 
-        postDao.createPost(post);
-
-        List<Post> posts = postDao.getPosts();
-        log.info("{}", posts);
 
     }
 
