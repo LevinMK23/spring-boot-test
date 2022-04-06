@@ -1,5 +1,6 @@
 package ru.learnUp.springboottest.dao.post;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.learnUp.springboottest.dao.entity.Post;
 import ru.learnUp.springboottest.dao.repository.PostRepository;
@@ -23,8 +24,9 @@ public class PostService {
        return repository.findAll();
     }
 
+    @Cacheable(value = "post")
     public Post getPostById(Long id) {
-        return repository.getById(id);
+        return repository.findId1(id);
     }
 
 }
