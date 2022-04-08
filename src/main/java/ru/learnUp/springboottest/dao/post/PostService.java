@@ -4,6 +4,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.learnUp.springboottest.dao.entity.Post;
 import ru.learnUp.springboottest.dao.repository.PostRepository;
 
@@ -18,6 +20,7 @@ public class PostService {
         this.repository = repository;
     }
 
+    @Transactional
     public Post createPost(Post post) {
         return repository.save(post);
     }
@@ -31,6 +34,7 @@ public class PostService {
         return repository.findId1(id);
     }
 
+    @Transactional
     @CacheEvict(value = "post", key = "#post.id")
     public void update(Post post) {
         repository.save(post);

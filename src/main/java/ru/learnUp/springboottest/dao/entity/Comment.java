@@ -1,9 +1,6 @@
 package ru.learnUp.springboottest.dao.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,7 +11,8 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString(exclude = {"post"})
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Comment implements Serializable {
 
     @Id
@@ -29,4 +27,8 @@ public class Comment implements Serializable {
     @Fetch(FetchMode.JOIN)
     private Post post;
 
+    public Comment(String text, Post post) {
+        this.text = text;
+        this.post = post;
+    }
 }
