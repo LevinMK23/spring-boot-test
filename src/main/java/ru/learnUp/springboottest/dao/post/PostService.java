@@ -1,5 +1,7 @@
 package ru.learnUp.springboottest.dao.post;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import ru.learnUp.springboottest.dao.entity.Post;
@@ -27,6 +29,11 @@ public class PostService {
     @Cacheable(value = "post")
     public Post getPostById(Long id) {
         return repository.findId1(id);
+    }
+
+    @CacheEvict(value = "post", key = "#post.id")
+    public void update(Post post) {
+        repository.save(post);
     }
 
 }

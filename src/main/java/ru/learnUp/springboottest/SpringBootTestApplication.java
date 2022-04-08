@@ -47,9 +47,17 @@ public class SpringBootTestApplication {
 
         // log.info("Post id = 1: {}", postRepository.findId1(1L));
 
+        Post post = postService.getPostById(1L);
+
         for (int i = 0; i < 5; i++) {
             log.info("Post id = 1: {}", postService.getPostById(1L));
         }
+
+        post.setText("Post text edited 3");
+
+        postService.update(post);
+
+        log.info("Post id = 1: {}", postService.getPostById(1L));
     }
 
 }
