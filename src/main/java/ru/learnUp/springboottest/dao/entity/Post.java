@@ -32,7 +32,6 @@ public class Post implements Serializable {
     @Column
     private String text;
 
-    //@Version
     @Valid
     @NotBlank
     private Long version;
