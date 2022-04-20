@@ -17,5 +17,6 @@ public class Book {
     private String description;
     private Long price;
     private Long count;
+    private Long field;
 
 }
