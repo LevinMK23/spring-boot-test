@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.redis.core.RedisHash;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+//@RedisHash
 public class Book {
 
     private Long id;

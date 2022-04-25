@@ -8,6 +8,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @ToString
+//@RedisHash
 public class Post implements Serializable {
 
     @Id

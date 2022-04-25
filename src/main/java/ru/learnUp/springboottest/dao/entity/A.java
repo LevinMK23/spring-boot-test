@@ -1,6 +1,7 @@
 package ru.learnUp.springboottest.dao.entity;
 
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @Entity
+//@RedisHash
 public class A {
 
     @Id

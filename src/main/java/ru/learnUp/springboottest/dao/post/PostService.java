@@ -58,6 +58,7 @@ public class PostService {
         }
     }
 
+    @CacheEvict(value = "post")
     public Boolean delete(Long id) {
         repository.delete(repository.getById(id));
         return true;

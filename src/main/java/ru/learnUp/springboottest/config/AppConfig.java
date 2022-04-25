@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.learnUp.springboottest.service.Operation;
 import ru.learnUp.springboottest.service.Processor;
 import ru.learnUp.springboottest.service.registry.ProcessorRegistry;
@@ -26,6 +28,11 @@ public class AppConfig {
                         Operation.MULTIPLY, multiplyProcessor
                 )
         );
+    }
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }
