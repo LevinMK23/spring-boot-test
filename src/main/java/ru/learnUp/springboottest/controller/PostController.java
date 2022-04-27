@@ -1,5 +1,6 @@
 package ru.learnUp.springboottest.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ru.learnUp.springboottest.PostViewMapper;
 import ru.learnUp.springboottest.dao.entity.Post;
@@ -26,6 +27,7 @@ public class PostController {
         this.mapper = mapper;
     }
 
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping
     public List<PostView> getPosts(
             @RequestParam(value = "text", required = false) String text,
@@ -37,6 +39,7 @@ public class PostController {
                 .collect(Collectors.toList());
     }
 
+    @Secured({"ROLE_ADMIN", "temp"})
     @GetMapping("/{postId}")
     public PostView getPost(@PathVariable("postId") Long postId) {
         return mapper.mapToView(postService.getPostById(postId));

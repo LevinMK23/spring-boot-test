@@ -41,13 +41,10 @@ public class PostService {
         return repository.findAll(specification);
     }
 
-    @Cacheable(value = "post")
     public Post getPostById(Long id) {
         return repository.findId1(id);
     }
 
-    @Transactional
-    @CacheEvict(value = "post", key = "#post.id")
     @Lock(value = LockModeType.READ)
     public Post update(Post post) {
         try {
@@ -58,7 +55,6 @@ public class PostService {
         }
     }
 
-    @CacheEvict(value = "post")
     public Boolean delete(Long id) {
         repository.delete(repository.getById(id));
         return true;

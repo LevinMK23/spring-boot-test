@@ -10,6 +10,7 @@ import ru.learnUp.springboottest.dao.user.User;
 import ru.learnUp.springboottest.dao.user.UserRepository;
 
 import javax.persistence.EntityExistsException;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,10 @@ public class UserService implements UserDetailsService {
         user.setRoles(existRoles);
         existRoles.forEach(role -> role.setUsers(Set.of(user)));
         userRepository.save(user);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     public void addRole(User user, Role role) {
