@@ -2,19 +2,22 @@ package ru.learnUp.springboottest.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+@EnableWebSecurity(debug = true)
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
-    //we have stopped the csrf to make post method work
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.cors()
                 .and()
                 .csrf()
-                .disable().authorizeRequests().anyRequest().authenticated()
+                .disable()
+                .authorizeRequests()
                 .and()
                 .formLogin();
     }
+
 }

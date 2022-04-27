@@ -45,6 +45,7 @@ public class PostService {
         return repository.findId1(id);
     }
 
+    @Transactional
     @Lock(value = LockModeType.READ)
     public Post update(Post post) {
         try {

@@ -8,6 +8,7 @@ import ru.learnUp.springboottest.dao.post.PostFilter;
 import ru.learnUp.springboottest.dao.post.PostService;
 import ru.learnUp.springboottest.view.PostView;
 
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -27,7 +28,7 @@ public class PostController {
         this.mapper = mapper;
     }
 
-    @Secured({"ROLE_ADMIN", "ROLE_USER"})
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER", "temp"})
     @GetMapping
     public List<PostView> getPosts(
             @RequestParam(value = "text", required = false) String text,
@@ -39,12 +40,13 @@ public class PostController {
                 .collect(Collectors.toList());
     }
 
-    @Secured({"ROLE_ADMIN", "temp"})
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @GetMapping("/{postId}")
     public PostView getPost(@PathVariable("postId") Long postId) {
         return mapper.mapToView(postService.getPostById(postId));
     }
 
+    @Secured("ROLE_ADMIN")
     @PostMapping
     public PostView createPost(@RequestBody PostView body) {
         if (body.getId() != null) {
@@ -57,6 +59,7 @@ public class PostController {
         return mapper.mapToView(createdPost);
     }
 
+    @Secured("ROLE_ADMIN")
     @PutMapping("/{postId}")
     public PostView updatePost(
             @PathVariable("postId") Long postId,
@@ -85,6 +88,7 @@ public class PostController {
 
     }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/{postId}")
     public Boolean deletePost(@PathVariable("postId") Long postId) {
         return postService.delete(postId);
