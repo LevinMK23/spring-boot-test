@@ -25,12 +25,14 @@ import java.util.Map;
 @Configuration
 public class AppConfig {
 
+
     @Bean
     public ProcessorRegistry processorRegistry(
             Processor sumProcessor,
             Processor subtractProcessor,
             Processor multiplyProcessor
     ) {
+
         return new ProcessorRegistry(
                 Map.of(
                         Operation.PLUS, sumProcessor,

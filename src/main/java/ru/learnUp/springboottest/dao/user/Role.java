@@ -29,8 +29,7 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private Set<User> users = new LinkedHashSet<>();
 
     @Override

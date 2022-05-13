@@ -25,7 +25,8 @@ public class User implements UserDetails {
     @Column
     private String password;
 
-    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "user_roles")
     private Set<Role> roles = new LinkedHashSet<>();
 
     @Override
